@@ -1,39 +1,20 @@
 class Phrase {
-    constructor(phrase = 'hello') {
+    constructor(phrase) {
         this.phrase = phrase;
     }
 
     addPhraseToDisplay() {
-        // build example
-        // <div id="phrase" class="section">
-        //     <ul>
-        //         <li class="hide letter h">h</li>
-        //         <li class="hide letter o">o</li>
-        //         <li class="hide letter w">w</li>
-        //         <li class="hide space"> </li>
-        //         <li class="hide letter a">a</li>
-        //         <li class="hide letter r">r</li>
-        //         <li class="hide letter e">e</li>
-        //         <li class="hide space"> </li>
-        //         <li class="hide letter y">y</li>
-        //         <li class="hide letter o">o</li>
-        //         <li class="hide letter u">u</li>
-        //     </ul>
-        // </div>
         const phrase = this.phrase;
-        const phraseWrapper = document.createElement('div');
-        phraseWrapper.setAttribute('id', 'phrase');
-        phraseWrapper.setAttribute('class', 'section');
+        console.log(phrase);
 
-        const letterList = document.createElement('ul');
-
+        const list = document.getElementById('phrase').firstElementChild;
+        console.log(list);
         for (let i = 0; i < phrase.length; i ++ ) {
             // TODO this does not yet check for spaces
             const letterItem = `<li class="hide letter ${phrase[i]}"> ${phrase[i]} </li>`;
-            letterList.append(letterItem)
+            // https://stackoverflow.com/questions/6304453/javascript-append-html-to-container-element-without-innerhtml
+            list.insertAdjacentHTML('beforeEnd', letterItem)
         }
-
-        phraseWrapper.append(letterList);
     }
 
     checkLetter() {

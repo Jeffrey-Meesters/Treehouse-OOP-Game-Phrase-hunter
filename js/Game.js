@@ -1,15 +1,18 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = [/*TODO: write phrases*/];
+        this.phrases = ['Goodbye', 'yolo', 'JavaScript'];
     }
 
     getRandomPhrase() {
         const randomNum = Math.floor(Math.random() * this.phrases.length);
-        return this.phrases[randomNum];
+        this.chosenPhrase = this.phrases[randomNum];
+        return this.chosenPhrase;
     }
 
-    handleInteraction() {
+    handleInteraction(letter) {
+        console.log(letter);
+        console.log(this.chosenPhrase);
         // TODO: check the button that the user clicked matches with letter(s) in phrase
 
         /* TODO:
@@ -36,5 +39,6 @@ class Game {
     startGame() {
         const phrase = this.getRandomPhrase();
         const phraseClass = new Phrase(phrase);
+        phraseClass.addPhraseToDisplay(); // TODO: give it the random phrase
     }
 }
