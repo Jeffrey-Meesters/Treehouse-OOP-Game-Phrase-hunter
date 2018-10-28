@@ -14,7 +14,7 @@ function markButton(event) {
         // https://www.w3schools.com/howto/howto_js_add_class.asp
         targetLetter.classList.add('chosen');
 
-        game.handleInteraction(letter);
+        game.handleInteraction(event, letter);
     }
 }
 

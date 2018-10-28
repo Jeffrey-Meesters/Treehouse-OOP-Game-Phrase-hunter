@@ -5,10 +5,8 @@ class Phrase {
 
     addPhraseToDisplay() {
         const phrase = this.phrase;
-        console.log(phrase);
-
         const list = document.getElementById('phrase').firstElementChild;
-        console.log(list);
+
         for (let i = 0; i < phrase.length; i ++ ) {
             // TODO this does not yet check for spaces
             const letterItem = `<li class="hide letter ${phrase[i]}"> ${phrase[i]} </li>`;
@@ -17,11 +15,16 @@ class Phrase {
         }
     }
 
-    checkLetter() {
+    checkLetter(letter) {
         // TODO: write code that checks player input and if it is a match with the phrase
+        return !!this.phrase.match(letter);
     }
 
-    showMatchedLetter() {
+    showMatchedLetter(letter) {
+        const letterElements = document.getElementsByClassName(letter);
+        for (let i = 0; i < letterElements.length; i ++) {
+            letterElements[i].classList.add('show');
+        }
         // TODO: write code that reveals matching letter(s)
     }
 }
