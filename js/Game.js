@@ -30,6 +30,22 @@ class Game {
             // else the letter is not in the phrase:
             // check if the event is an keyboard event
             if (event instanceof KeyboardEvent) {
+                // save any elements that have the 'wrong' class
+                const wrongInputs = document.querySelectorAll('.wrong');
+
+                // if there are wrong inputs
+                if (wrongInputs) {
+                    // loop over the elements and if their textContent equals
+                    // the typed letter, prevent the script from running further
+                    // so the player does not lose lives by typing the wrong letter
+                    // multiple times
+                    for (let i = 0; i < wrongInputs.length; i ++) {
+                        if (wrongInputs[i].textContent === letter) {
+                            return false;
+                        }
+                    }
+                }
+
                 // collect all button elements on screen which have the key class
                 const buttonElements = document.querySelectorAll('.key');
                 let targetLetter;
