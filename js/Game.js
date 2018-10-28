@@ -1,7 +1,7 @@
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = ['goodbye', 'yolo', 'javascript'];
+        this.phrases = ['goodbye', 'yolo', 'javascript', 'css', 'hi there', 'how are you'];
         this.phraseClass = '';
     }
 
@@ -12,20 +12,31 @@ class Game {
     }
 
     handleInteraction(event, letter) {
-        // TODO: check the button that the user clicked matches with letter(s) in phrase
         const letterIsInPhrase = this.phraseClass.checkLetter(letter);
         console.log(letterIsInPhrase);
         if (letterIsInPhrase) {
             this.phraseClass.showMatchedLetter(letter);
             this.checkForWin();
         } else {
-            event.target.classList.add('wrong');
+            if (event instanceof KeyboardEvent) {
+                const buttonElements = document.querySelectorAll('.key');
+                let targetLetter;
+
+                for (let i = 0; i < buttonElements.length; i ++) {
+                    if (buttonElements[i].textContent === letter) {
+                        targetLetter = buttonElements[i];
+                    }
+                }
+                targetLetter.classList.add('wrong');
+            } else {
+                event.target.classList.add('wrong');
+            }
+
             this.removeLife();
         }
     }
 
     removeLife() {
-        //TODO: remove life, remove heart from board, if no more lives end game
         this.missed += 1;
         document.getElementsByClassName('tries')[0].remove();
 
@@ -35,25 +46,29 @@ class Game {
     }
 
     checkForWin() {
-    //    TODO: check if player has selected all letter
         const showCount = document.querySelectorAll('.show').length;
         const letterCount = this.phraseClass.phrase.length;
 
         if (letterCount === showCount) {
-            this.gameOver(`You won! The word was ${this.chosenPhrase}`);
+            this.gameOver(`You won! The phrase was <i>"${this.chosenPhrase}</i>"`);
         }
-    //    if so gameOver(`You won! The word was ${this.chosenPhrase}`)
     }
 
     gameOver(message) {
         document.getElementById('overlay').style.display = 'block';
-        document.getElementById('game-over-message').textContent = message;
-    //    TODO: display a win or a lose message
+        document.getElementById('game-over-message').innerHTML = message;
+        document.getElementById('btn__reset').textContent = 'Reset Game';
     }
 
     startGame() {
+        if (document.getElementById('btn__reset').textContent === 'Reset Game') {
+            window.location.reload(true);
+            return false;
+        }
+
         const phrase = this.getRandomPhrase();
         this.phraseClass = new Phrase(phrase);
         this.phraseClass.addPhraseToDisplay();
+        document.getElementById('overlay').style.display = 'none';
     }
 }

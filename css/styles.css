@@ -107,7 +107,9 @@ button {
   width: 15px;
 }
 
-
+.hide {
+  opacity: 0;
+}
 
 .show {
   color: #fff;

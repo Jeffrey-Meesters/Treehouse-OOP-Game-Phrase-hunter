@@ -8,15 +8,19 @@ class Phrase {
         const list = document.getElementById('phrase').firstElementChild;
 
         for (let i = 0; i < phrase.length; i ++ ) {
-            // TODO this does not yet check for spaces
-            const letterItem = `<li class="hide letter ${phrase[i]}"> ${phrase[i]} </li>`;
+            let letterItem = '';
+            if (phrase[i] === ' ') {
+                letterItem = `<li class="hide show letter ${phrase[i]}"> ${phrase[i]} </li>`;
+            } else {
+                letterItem = `<li class="letter ${phrase[i]}"> ${phrase[i]} </li>`;
+            }
+
             // https://stackoverflow.com/questions/6304453/javascript-append-html-to-container-element-without-innerhtml
             list.insertAdjacentHTML('beforeEnd', letterItem)
         }
     }
 
     checkLetter(letter) {
-        // TODO: write code that checks player input and if it is a match with the phrase
         return !!this.phrase.match(letter);
     }
 
@@ -25,6 +29,5 @@ class Phrase {
         for (let i = 0; i < letterElements.length; i ++) {
             letterElements[i].classList.add('show');
         }
-        // TODO: write code that reveals matching letter(s)
     }
 }
